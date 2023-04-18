@@ -26,3 +26,6 @@ ssh-keygen -t ecdsa -b 521 -C "" -f "identity" -N ""
 ssh-keyscan github.com > ./known_hosts
 
 ````
+
+
+##### Don't forget to add it to our default serviceaccount in the desired namespace(s)
