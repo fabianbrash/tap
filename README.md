@@ -29,3 +29,32 @@ ssh-keyscan github.com > ./known_hosts
 
 
 ##### Don't forget to add it to our default serviceaccount in the desired namespace(s)
+
+##### Example of a workload.yaml file using a private repo
+
+[https://github.com/fabianbrash/tap-java-functions/blob/main/config/workload.yaml](https://github.com/fabianbrash/tap-java-functions/blob/main/config/workload.yaml)
+
+##### The key piece here is the git URL
+
+
+````
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: java-function
+  labels:
+    apps.tanzu.vmware.com/workload-type: web
+    app.kubernetes.io/part-of: java-function
+  namespace: backend
+spec:
+  source:
+    git:
+      url: ssh://git@github.com:fabianbrash/tap-java-functions.git
+      ref:
+        branch: main
+  build:
+    env:
+      - name: BP_FUNCTION
+        value: functions.Handler
+
+````
